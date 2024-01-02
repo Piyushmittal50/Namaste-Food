@@ -2,8 +2,9 @@
   "name": "react_by_as",
   "version": "1.0.0",
   "description": "React by Akshay",
-  "main": "App.js",
   "scripts": {
+    "start": "parcel index.html",
+    "build":"parcel build index.html",
     "test": "jest"
   },
   "author": "",
