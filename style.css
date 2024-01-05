@@ -1,3 +1,46 @@
-#heading{
-    color: red;
+.header{
+   display : flex;
+   justify-content: space-between;
+   border:1px solid black;
+}
+
+.logo{
+    width: 100px;
+}
+.nav-items > ul{
+    display: flex;
+    list-style-type: none;
+    font-size: 24px;
+    font-style:italic;
+}
+.nav-items > ul > li{
+    padding: 10px;
+    margin : 10px;
+}
+.search{
+    padding-top:10px;
+    padding-bottom:10px;
+}
+.res-card{
+    margin: 10px;
+    width:200px;
+    height:330px;
+    border-radius: 8px;
+    
+    background-color: #f4f4f4;
+    cursor: pointer;
+}
+.res-card:hover{
+    border: 1px solid black;
+}
+.res-image{
+    margin:2px;
+    width:190px;
+    height:150px;
+    border-radius:4px;
+}
+.res-container{
+  display:flex;
+  flex-wrap: wrap;
+  margin:5px;
 }
