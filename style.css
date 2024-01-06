@@ -44,3 +44,16 @@
   flex-wrap: wrap;
   margin:5px;
 }
+
+.filter-btn{
+    padding: 5px;
+    margin-top: 5px;
+    margin-left : 10px;
+    border-radius: 2px;
+}
+.filter-btn:hover{
+    border-color:orange;
+    font-weight: bold;
+    background-color:aqua;
+    cursor: pointer;
+}
