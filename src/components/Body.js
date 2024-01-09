@@ -1,62 +1,73 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import ResCard from "./ResCard";
-import resObj from "../utils/mockData";
+import Shimmer from "./Shimmer";
  const Body = () => {
-     const listOfRes = [
-        {
-            data: {
-                id: "334475",
-                resName: "Dominos", 
-                cloudinaryImageId: "f01666ac73626461d7455d9c24005cd4",
-                cusine: "Mexican",
-                delTime: "45 minutes",
-                rating: 4.2
-            }
-        },
-         {
-            data: {
-                id: "334476",
-                resName: "KFC",
-                cloudinaryImageId: "258fe8a3577877fbfe064095ed1d9dc3",
-                cusine: "American",
-                delTime: "40 minutes",
-                rating: 3.2
-            }
-        },
-            {
-            data: {
-                id: "334477",
-                resName: "Kaash",
-                cloudinaryImageId: "thfmjr9vav3tye3ce9xw",
-                cusine: "Nepal",
-                delTime: "40 minutes",
-                rating: 4.9
-            }
-        }
-    ];
-    
-      const [filteredRes, setFilteredRes] = useState(resObj.restaurantCarts);
 
-      const filterTopRated = () => {
-        const filtered = resObj.restaurantCarts.filter((res) => res.rating > 4.5);
-        setFilteredRes(filtered);
-      };
-     
-     
-    return (
-      <div className="body">
-        <div className="filter">
-          <button className="filter-btn" onClick={filterTopRated}>
-            Top Rated Restaurants
-          </button>
-        </div>
-        <div className="res-container">
-          {filteredRes.map((restaurant) => (
-            <ResCard key={restaurant.id} resData={restaurant} />
-          ))}
-        </div>
-      </div>
-    );
-};
+   //const filterTopRated = () => {
+   // const filtered = resObj.restaurantCarts.filter((res) => res.rating > 4.5);
+   //setFilteredRes(filtered);
+   //};
+   const [searchText, setSearchText] = useState("");
+   const [listOfRes, setListOfRes] = useState([]);
+   const [filteredRestaurant, setfilteredRestaurant] = useState([]);
+   useEffect(() => {
+     fetchData();
+   }, []);
+   const fetchData = async () => {
+     const data = await fetch(
+       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.7723852&lng=75.8588375&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+     );
+     const jsonData = await data.json();
+
+     //optional chaining
+     setListOfRes(jsonData?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+     setfilteredRestaurant(jsonData?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+   };
+   
+   // conditional rendering
+   if (listOfRes.length === 0) {
+     return <Shimmer></Shimmer>;
+   }
+
+
+   return (
+     <div className="body">
+       <div className="filter">
+         <div className="search">
+           <input type="text" className="search-box" value={searchText}
+             onChange={(e) => {
+               setSearchText(e.target.value);
+             }}
+           />
+           <button className="button-search"
+             onClick={() => {
+               const filteredRes = listOfRes.filter((res) => {
+                  const restaurantName = res.info.name.toLowerCase();
+                  const searchTextLower = searchText.toLowerCase();
+                  return restaurantName.includes(searchTextLower);
+               });
+
+               setfilteredRestaurant(filteredRes);
+            }}
+           >Search</button>
+         </div>
+         <button
+           className="filter-btn"
+           onClick={() => {
+             const filterList = listOfRes.filter((res) => res.info.avgRating > 4.5);
+             setListOfRes(filterList);
+           }}
+         >
+           Top Rated Restaurants
+         </button>
+       </div>
+       <div className="res-container">
+         {filteredRestaurant.map((restaurant) => (
+           <ResCard key={restaurant.info.id} resData={restaurant} />
+         ))}
+       </div>
+     </div>
+   );
+ };
 
 export default Body;

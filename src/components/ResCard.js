@@ -6,12 +6,12 @@ const ResCard = (props) => {
         <img
           alt="Image"
           className="res-image"
-          src={CDN_URl + resData.cloudinaryImageId}
+          src={CDN_URl + resData.info.cloudinaryImageId}
         />
-        <h3>{resData.resName}</h3>
-        <h4>{resData.cusine}</h4>
-        <h4>{resData.delTime}</h4>
-        <h4>{resData.rating}</h4>
+        <h3>{resData.info.name}</h3>
+        <h4>{resData.info.cuisines.join(" , ")}</h4>
+        <h4>{resData.info.sla.deliveryTime}</h4>
+        <h4>{resData.info.avgRating}</h4>
       </div>
     );
 };

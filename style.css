@@ -24,7 +24,7 @@
 .res-card{
     margin: 10px;
     width:200px;
-    height:330px;
+    
     border-radius: 8px;
     
     background-color: #f4f4f4;
@@ -39,21 +39,62 @@
     height:150px;
     border-radius:4px;
 }
+.filter{
+    display: flex;
+    flex-wrap: wrap;
+}
 .res-container{
-  display:flex;
-  flex-wrap: wrap;
-  margin:5px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .filter-btn{
-    padding: 5px;
+    padding: 0 10px;
     margin-top: 5px;
-    margin-left : 10px;
-    border-radius: 2px;
+    margin-left : 40px;
+    border-radius: 2px; 
 }
 .filter-btn:hover{
     border-color:orange;
     font-weight: bold;
     background-color:aqua;
     cursor: pointer;
+}
+.shimmer-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+.shimmer-card{
+    height:400px;
+    background-color: #f0f0f0;
+    width:200px;
+    margin:20px;
+}
+
+.login-button{
+    margin-top:10px;
+    margin-right: 12px;
+    padding:10 20px;
+    width: 80px;
+    height:50px;
+}
+.login-button:hover{
+    cursor: pointer;
+    background-color: azure;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.search{
+    margin:5px 10px;
+}
+.search-box{
+    padding:10px;
+}
+.button-search{
+    padding:10px;
+    cursor:pointer;
+    font-weight: bold;
 }
