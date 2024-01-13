@@ -1,21 +1,43 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Shimmer from "./Shimmer";
+import { Params, useParams } from "react-router-dom";
+import { menu_API } from "../utils/constants";
 const RestaurantMenu = () => {
+  const [resInfo, setresInfo] = useState(null); 
+  const { resId } = useParams();
+
     useEffect(() => {
         fetchMenu();
     }, []);
 
-    const fetchMenu = async () => {
-        const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.7723852&lng=75.8588375&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
-        const json = await data.json();
-        //console.log(json);  
-    }
+  const fetchMenu = async () => {
+    const data = await fetch(menu_API+resId);
+    const json = await data.json();
+    const main = json.data;
+    setresInfo(main);
+  };
+
+  if (resInfo === null) {
+    return <Shimmer/>
+  }
+
+  const { name, city, areaName, costForTwoMessage, cuisines, avgRatingString } = resInfo?.cards[0]?.card?.card?.info;
+  
+  const { itemCards } = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
     return (
       <div className="menu">
-        <h1>Restaurant Name</h1>
+        <h1>{name}</h1>
+        <h3>{areaName} - {city}</h3>
+        <p>{cuisines.join(', ')}</p>
+        <p>{costForTwoMessage}</p>
+        <p>{avgRatingString}</p>
+        <h2>----Menu----</h2>
         <ul>
-          <li>Biryni</li>
-          <li>Biryni</li>
-          <li>Biryni</li>
+          {itemCards.map((item) => (
+          <li key={item.card.info.id}>
+            {item.card.info.name}     - {"Rs."} {item.card.info.price / 100 || item.card.info.defaultPrice / 100}
+          </li>
+          ))} 
         </ul>
       </div>
     );

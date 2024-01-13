@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ResCard from "./ResCard";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 const Body = () => {
   //const filterTopRated = () => {
   // const filtered = resObj.restaurantCarts.filter((res) => res.rating > 4.5);
@@ -72,7 +73,9 @@ const Body = () => {
       </div>
       <div className="res-container">
         {filteredRestaurant.map((restaurant) => (
-          <ResCard key={restaurant.info.id} resData={restaurant} />
+          <Link to={"/restaurants/" + restaurant.info.id}>
+            <ResCard key={restaurant.info.id} resData={restaurant} />
+          </Link>
         ))}
       </div>
     </div>
