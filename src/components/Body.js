@@ -21,7 +21,7 @@ const Body = () => {
 
     //optional chaining
     const restaurants =
-      jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+      jsonData?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants;
     setListOfRes(restaurants);
     setfilteredRestaurant(restaurants);
@@ -63,9 +63,10 @@ const Body = () => {
           className="filter-btn"
           onClick={() => {
             const filterList = listOfRes.filter(
-              (res) => res.info.avgRating > 4.5
+              (res) => res.info.avgRating > 4.2
             );
-            setListOfRes(filterList);
+            //setListOfRes(filterList);
+             setfilteredRestaurant(filterList);
           }}
         >
           Top Rated Restaurants
