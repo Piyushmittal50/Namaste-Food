@@ -21,10 +21,11 @@ const Body = () => {
 
     //optional chaining
     const restaurants =
-      jsonData?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle
+      jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants;
     setListOfRes(restaurants);
     setfilteredRestaurant(restaurants);
+    
   };
 
   // conditional rendering
